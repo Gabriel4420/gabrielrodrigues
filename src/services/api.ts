@@ -32,13 +32,22 @@ export default {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
       },
       body: JSON.stringify({
-        query: `{  allProjetos {
+        query: `{  
+          allProjetos {
         id
-        titulo
-        linkDoProjeto
+        descricao
+    linkDoCodigoDoProjeto
+    linkDoProjeto
+    tecnologiaAside
+   
+    titulo
         imagemDoProjeto {
           url
         }
+        
+        
+        
+        
       }}`,
       }),
     })

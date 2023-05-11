@@ -5,14 +5,14 @@ export const MenuRendering: Array<{ menuItemName: string; url: string }> = [
   },
   {
     menuItemName: 'Habilidades',
-    url: '#skills',
+    url: '/#skills',
   },
   {
     menuItemName: 'Projetos',
-    url: '#projects',
+    url: '/#projects',
   },
   {
     menuItemName: 'Contato',
-    url: '#contact',
+    url: '/#contact',
   },
 ]
