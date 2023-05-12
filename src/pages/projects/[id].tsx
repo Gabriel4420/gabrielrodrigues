@@ -9,7 +9,7 @@ const Property = ({ project }) => {
     <div className="w-full overflow-x-hidden ">
       <div className="w-screen h-[60vh] relative">
         <div className="absolute top-0 left-0 w-full h-[60vh] bg-black/50 z-10" />
-        {project.imagemDoProjeto && (
+        {project.imagemDoProjeto[0] && (
           <Image
             className="absolute z-1"
             layout="fill"
