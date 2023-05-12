@@ -70,7 +70,17 @@ const Contact: React.FC = () => {
                     </a>
                   </div>
                   <div className="rounded-full shadow-lg shadow-gray-400 mr-2 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
-                    <BsFillPersonLinesFill size={25} href="" />
+                    <a
+                      title="linktree"
+                      rel="no-referrer noopener no-follow"
+                      target="_blank"
+                      href="https://linktr.ee/gabriel4420"
+                    >
+                      <BsFillPersonLinesFill
+                        size={25}
+                        href="https://linktr.ee/gabriel4420"
+                      />
+                    </a>
                   </div>
                 </div>
               </div>
