@@ -1,7 +1,0 @@
-export { default as MainHero } from './mols/MainHero'
-export { default as Navbar } from './mols/Navbar'
-export { default as About } from './mols/About'
-export { default as Skills } from './mols/Skills'
-export { default as Contact } from './mols/Contact'
-export { default as Projects } from './mols/Projects'
-export * from './atoms'
