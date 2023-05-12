@@ -110,7 +110,7 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
   const projects = await api.AllProjects();
   const ids = projects.data.allProjetos.map((s) => ({ params: { id: s.id } }));
-  return { paths: ids, fallback: true };
+  return { paths: ids, fallback: false };
 }
 
 export default Property;
