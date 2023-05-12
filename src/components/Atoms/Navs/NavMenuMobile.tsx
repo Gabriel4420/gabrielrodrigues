@@ -16,7 +16,7 @@ const NavMenuMobile: FC<PropertiesNavMenuIcon> = ({
         <div>
           <div className="flex w-full items-center justify-between ">
             <Image
-              src="/../assets/logogabriel.png"
+              src="/assets/logogabriel.png"
               alt="logo"
               width="87"
               height="25"
