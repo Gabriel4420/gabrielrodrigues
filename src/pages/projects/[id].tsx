@@ -9,14 +9,17 @@ const Property = ({ project }) => {
     <div className="w-full overflow-x-hidden ">
       <div className="w-screen h-[60vh] relative">
         <div className="absolute top-0 left-0 w-full h-[60vh] bg-black/50 z-10" />
-        <Image
-          className="absolute z-1"
-          layout="fill"
-          objectFit="cover"
-          objectPosition="50% 0"
-          src={project.imagemDoProjeto[0].url}
-          alt="/"
-        />
+        {project.imagemDoProjeto && (
+          <Image
+            className="absolute z-1"
+            layout="fill"
+            objectFit="cover"
+            objectPosition="50% 0"
+            src={project.imagemDoProjeto[0].url}
+            alt="/"
+          />
+        )}
+
         <div className="absolute top-[70%] max-w-[1240px] w-full left-[50%] right-[50%] translate-x-[-50%] translate-y-[-50%] text-white z-10 p-2">
           <h2 className="py-2">{project.titulo}</h2>
           <h3>{project.tecnologias}</h3>
