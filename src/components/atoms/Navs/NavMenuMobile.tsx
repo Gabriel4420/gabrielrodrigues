@@ -46,7 +46,7 @@ const NavMenuMobile: FC<PropertiesNavMenuIcon> = ({
             ))}
           </ul>
 
-          <div className="pt-40 ">
+          <div className="pt-10  ">
             <p className="uppercase tracking-widest text-[#5651e5] font-bold py-2">
               Vamos nos conectar !
             </p>
