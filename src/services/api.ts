@@ -39,6 +39,7 @@ export default {
     linkDoCodigoDoProjeto
     linkDoProjeto
     tecnologiaAside
+    tecnologias
    
     titulo
         imagemDoProjeto {

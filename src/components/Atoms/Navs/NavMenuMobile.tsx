@@ -1,13 +1,11 @@
-import { FC, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import { AiOutlineClose, AiOutlineMail } from "react-icons/ai";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { BsFillPersonLinesFill } from "react-icons/bs";
-
-import { MenuRendering } from "@/helpers/menuContent";
-
-import PropertiesNavMenuIcon from "@/interfaces/PropertiesNavMenuIcon";
+import { FC } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { PropertiesNavMenuIcon } from "@/interfaces";
+import { MenuRendering } from "@/helpers";
 
 const NavMenuMobile: FC<PropertiesNavMenuIcon> = ({
   haveNav,

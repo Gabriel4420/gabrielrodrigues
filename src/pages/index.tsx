@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { MainHero, Skills, Projects, Contact } from "@/components";
-import api from "@/services/api";
+
+import { api } from "@/services";
 
 export async function getStaticProps() {
   const projects = await api.AllProjects();
@@ -15,7 +16,7 @@ export async function getStaticProps() {
 
   return {
     props: { dataSummaryProjects, allTechnologies },
-    revalidate: 10, // will be passed to the page component as props
+    revalidate: 10,
   };
 }
 

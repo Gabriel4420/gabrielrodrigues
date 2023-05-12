@@ -1,26 +1,10 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { RiRadioButtonFill } from "react-icons/ri";
 import Link from "next/link";
-import api from "@/services/api";
+import { api } from "@/services";
 
 const Property = ({ project }) => {
-  const [stringComHTML, setStringComHTML] = useState<string>("");
-
-  useEffect(() => {
-    const string = JSON.stringify(project.descricao);
-
-    setStringComHTML(string);
-  }, []);
-
-  const description: string = stringComHTML.replace(/["]/g, " ");
-
-  const descWithoutN = description
-    .split("")
-    .filter((x) => x != "\n")
-    .toString()
-    .replaceAll(",", "");
-
   return (
     <div className="w-full overflow-x-hidden ">
       <div className="w-screen h-[60vh] relative">
@@ -41,12 +25,12 @@ const Property = ({ project }) => {
 
       <div className="max-w-[1240px] mx-auto p-2 grid md:grid-cols-5 gap-8 py-8">
         <div className="col-span-4">
-          <p>Projeto</p>
+          <p className="text-[#19ba5f] font-bold">Projeto</p>
           <h2>Overview</h2>
           <br />
           <div
             dangerouslySetInnerHTML={{
-              __html: descWithoutN,
+              __html: project.descricao,
             }}
           />
           {project.linkDoCodigoDoProjeto && (
@@ -55,7 +39,9 @@ const Property = ({ project }) => {
               target="_blank"
               rel="noreferrer noopener"
             >
-              <button className="px-8 py-2 mt-4 mr-8">Code</button>
+              <button className="px-8 py-2 mt-4 mr-8 bg-gradient-to-r from-[#98e49e] to-[#19ba5f]">
+                Code
+              </button>
             </a>
           )}
           <a
@@ -63,13 +49,15 @@ const Property = ({ project }) => {
             target="_blank"
             rel="noreferrer noopener"
           >
-            <button className="px-8 py-2 mt-4">Site Ao vivo</button>
+            <button className="px-8 py-2 mt-4 bg-gradient-to-r from-[#98e49e] to-[#19ba5f]">
+              Site Ao vivo
+            </button>
           </a>
         </div>
         {project.tecnologiaAside && (
           <div className="col-span-4 md:col-span-1 shadow-xl shadow-gray-400 rounded-xl py-4">
             <div className="p-2">
-              <p className="text-center font-bold pb-2">Tecnologias</p>
+              <p className="text-start px-2 font-bold pb-2 ">Tecnologias</p>
               <div className="grid grid-cols-3 md:grid-cols-1">
                 {project.tecnologiaAside.map((item: string, index: number) => {
                   return (
@@ -77,7 +65,8 @@ const Property = ({ project }) => {
                       key={index}
                       className="text-gray-600 py-2 flex items-center"
                     >
-                      <RiRadioButtonFill className="pr-1" /> {item}
+                      <RiRadioButtonFill className="pr-1 text-[#3ddb80]" />{" "}
+                      {item}
                     </p>
                   );
                 })}
@@ -86,7 +75,9 @@ const Property = ({ project }) => {
           </div>
         )}
         <Link href="/#projects">
-          <p className="underline cursor-pointer">Back</p>
+          <button className="hover:underline bg-slate-600  px-8 py-2 cursor-pointer">
+            Back
+          </button>
         </Link>
       </div>
     </div>

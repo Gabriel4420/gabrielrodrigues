@@ -1,8 +1,6 @@
-import PropertiesNavMenuIcon from "@/interfaces/PropertiesNavMenuIcon";
-import {FC} from "react";
+import { PropertiesNavMenuIcon } from "@/interfaces";
+import { FC } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
-
-// import { Container } from './styles';
 
 const NavMenuHamburguerIcon: FC<PropertiesNavMenuIcon> = ({
   haveNav,

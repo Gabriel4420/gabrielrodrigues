@@ -1,8 +1,6 @@
-import { MenuRendering } from "@/helpers/menuContent";
+import { MenuRendering } from "@/helpers";
 import Link from "next/link";
 import React from "react";
-
-// import { Container } from './styles';
 
 const NavMenu: React.FC = () => {
   return (

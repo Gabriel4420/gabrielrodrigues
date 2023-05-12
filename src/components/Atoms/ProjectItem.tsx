@@ -1,8 +1,7 @@
-import PropertiesProjectItem from "@/interfaces/PropertiesProjectItem";
+import { PropertiesProjectItem } from "@/interfaces";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { Carousel } from "flowbite-react";
 
 const ProjectItem = ({
   title,

@@ -5,8 +5,6 @@ import { BsFillPersonLinesFill } from "react-icons/bs";
 import { FaLinkedinIn, FaGithub } from "react-icons/fa";
 import { HiOutlineChevronDoubleUp } from "react-icons/hi";
 
-// import { Container } from './styles';
-
 const Contact: React.FC = () => {
   return (
     <div className="w-full lg:h-screen" id="contact">
@@ -36,19 +34,40 @@ const Contact: React.FC = () => {
               <div>
                 <div className="flex justify-between py-4">
                   <div className="rounded-full shadow-lg shadow-gray-400 mr-2 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
-                    <FaLinkedinIn
-                      size={25}
+                    <a
+                      title="linkedin"
+                      rel="no-referrer noopener no-follow"
+                      target="_blank"
                       href="https://www.linkedin.com/in/gabriel442021/"
-                    />
+                    >
+                      <FaLinkedinIn
+                        size={25}
+                        href="https://www.linkedin.com/in/gabriel442021/"
+                      />
+                    </a>
                   </div>
                   <div className="rounded-full shadow-lg shadow-gray-400 mr-2 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
-                    <FaGithub size={25} />
+                    <a
+                      title="github"
+                      rel="no-referrer noopener no-follow"
+                      target="_blank"
+                      href="https://www.github.com/Gabriel4420"
+                    >
+                      <FaGithub size={25} />
+                    </a>
                   </div>
                   <div className="rounded-full shadow-lg shadow-gray-400 mr-2 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
-                    <AiOutlineMail
-                      size={25}
+                    <a
+                      title="email"
+                      rel="no-referrer noopener no-follow"
+                      target="_blank"
                       href="mailto:gabriel_rodrigues_perez@hotmail.com"
-                    />
+                    >
+                      <AiOutlineMail
+                        size={25}
+                        href="mailto:gabriel_rodrigues_perez@hotmail.com"
+                      />
+                    </a>
                   </div>
                   <div className="rounded-full shadow-lg shadow-gray-400 mr-2 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
                     <BsFillPersonLinesFill size={25} href="" />
