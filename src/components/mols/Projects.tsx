@@ -1,5 +1,5 @@
 import React from "react";
-import ProjectItem from "../Atoms/ProjectItem";
+import { ProjectItem } from "../atoms";
 import PropertiesDataApi from "@/interfaces/PropertiesDataApi";
 import { Carousel } from "flowbite-react";
 
