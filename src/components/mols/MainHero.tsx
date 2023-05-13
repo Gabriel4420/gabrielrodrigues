@@ -21,9 +21,9 @@ const MainHero: React.FC = () => {
             Dev Fullstack
           </h1>
           <p className="py-4 text-md 2xl:text-xl text-gray-600 max-w-[70%] m-auto">
-            Sou formado em analise e desenvolvimento de sistemas, tenho 3 anos
-            de experiência com desenvolvimento de sites e sistemas web,e estou
-            em busca de uma oportunidade na área de desenvolvimento como
+            Sou formado em analise e desenvolvimento de sistemas, tenho mais de
+            3 anos de experiência com desenvolvimento de sites e sistemas web,e
+            estou em busca de uma oportunidade na área de desenvolvimento como
             frontend.
             <br />
             <br />
