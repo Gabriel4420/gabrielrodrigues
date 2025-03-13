@@ -1,11 +1,67 @@
+"use client";
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { AiOutlineMail } from "react-icons/ai";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { FaLinkedinIn, FaGithub } from "react-icons/fa";
 import { HiOutlineChevronDoubleUp } from "react-icons/hi";
 
 const Contact: React.FC = () => {
+  const [email, setEmail] = useState<string>("");
+  const [subject, setSubject] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [status, setStatus] = useState<string>("");
+
+  const sendEmailForm = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("sending");
+
+    try {
+      const response = await fetch(
+        "https://personal-api-sender-email.vercel.app/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            subject,
+            message,
+            phone,
+            name,
+          }),
+        }
+      );
+
+      const data = await response.json();
+      console.log(data);
+
+      if (response.ok) {
+        setStatus("success");
+        // Reset form
+        setEmail("");
+        setSubject("");
+        setMessage("");
+        setPhone("");
+        setName("");
+        alert("Email enviado com sucesso!");
+      } else {
+        setStatus("error");
+        alert(data.error || "Erro ao enviar email");
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+      setStatus("error");
+      alert("Erro ao enviar email");
+    } finally {
+      setTimeout(() => setStatus(""), 3000);
+    }
+  };
+
   return (
     <div className="w-full lg:h-screen" id="contact">
       <div className="max-w-[77.5rem] m-auto px-2 py-16 w-full">
@@ -89,58 +145,94 @@ const Contact: React.FC = () => {
 
           <div className="col-span-3 w-full h-auto shadow-xl shadow-gray-400 rounded-xl lg:p-4">
             <div className="p-4">
-              <form action="">
-                <div className="grid md:grid-cols-2 gap-4 w-full ">
+              <form onSubmit={sendEmailForm}>
+                <div className="grid md:grid-cols-2 gap-4 w-full">
                   <div className="flex flex-col">
-                    <label htmlFor="" className="uppercase text-sm py-2">
+                    <label htmlFor="name" className="uppercase text-sm py-2">
                       Nome
                     </label>
                     <input
-                      type="text"
+                      id="name"
+                      name="name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                       placeholder="Digite seu nome completo"
                       className="border-2 rounded-lg p-3 flex border-gray-300"
+                      required
                     />
                   </div>
                   <div className="flex flex-col">
-                    <label htmlFor="" className="uppercase text-sm py-2">
+                    <label htmlFor="phone" className="uppercase text-sm py-2">
                       Telefone
                     </label>
                     <input
+                      id="phone"
+                      name="phone"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                       type="tel"
-                      placeholder="Digite seu nome completo"
+                      placeholder="Digite seu telefone"
                       className="border-2 rounded-lg p-3 flex border-gray-300"
+                      required
                     />
                   </div>
                 </div>
                 <div className="flex flex-col py-2">
-                  <label htmlFor="" className="uppercase text-sm py-2">
+                  <label htmlFor="email" className="uppercase text-sm py-2">
                     Email
                   </label>
                   <input
-                    type="email"
-                    placeholder="Digite seu nome completo"
+                    id="email"
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Digite seu email"
                     className="border-2 rounded-lg p-3 flex border-gray-300"
+                    required
                   />
                 </div>
                 <div className="flex flex-col py-2">
-                  <label htmlFor="" className="uppercase text-sm py-2">
+                  <label htmlFor="subject" className="uppercase text-sm py-2">
                     Assunto
                   </label>
                   <input
+                    id="subject"
+                    name="subject"
                     type="text"
-                    placeholder="Digite seu nome completo"
+                    value={subject}
+                    onChange={(e) => setSubject(e.target.value)}
+                    placeholder="Digite o assunto"
                     className="border-2 rounded-lg p-3 flex border-gray-300"
+                    required
                   />
                 </div>
                 <div className="flex flex-col py-2">
-                  <label htmlFor="" className="uppercase text-sm py-2">
+                  <label htmlFor="message" className="uppercase text-sm py-2">
                     Mensagem
                   </label>
                   <textarea
+                    id="message"
+                    name="message"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
                     placeholder="Insira sua mensagem"
                     className="border-2 rounded-lg p-3 border-gray-300"
+                    required
                   ></textarea>
                 </div>
+                <button
+                  className="bg-[#3ddb80] w-1/2 p-4 text-white font-bold rounded-lg mt-4 hover:bg-[#3ddb80] disabled:opacity-50"
+                  type="submit"
+                  disabled={status === "sending"}
+                >
+                  {status === "sending"
+                    ? "Enviando..."
+                    : status === "success"
+                    ? "Enviado!"
+                    : status === "error"
+                    ? "Erro ao enviar"
+                    : "Enviar"}
+                </button>
               </form>
             </div>
           </div>

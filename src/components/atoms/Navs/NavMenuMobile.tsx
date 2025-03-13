@@ -37,7 +37,7 @@ const NavMenuMobile: FC<PropertiesNavMenuIcon> = ({
         </div>
         <div className="py-4 flex flex-col ">
           <ul className="uppercase">
-            {MenuRendering.map((item, index) => (
+            {MenuRendering().map((item, index) => (
               <Link key={index} href={item.url}>
                 <li onClick={haveNav} className="py-4 text-sm hover:font-bold">
                   {item.menuItemName}
