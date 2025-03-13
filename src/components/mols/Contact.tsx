@@ -21,7 +21,7 @@ const Contact: React.FC = () => {
 
     try {
       const response = await fetch(
-        "https://personal-api-sender-email.vercel.app/",
+        "https://personal-api-sender-email.vercel.app/email/send",
         {
           method: "POST",
           headers: {
