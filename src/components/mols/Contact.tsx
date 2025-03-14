@@ -26,6 +26,8 @@ const Contact: React.FC = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Access-Control-Allow-Origin":
+              "https://gabrielrodrigues.vercel.app",
           },
           body: JSON.stringify({
             email,
