@@ -14,9 +14,6 @@ const Skills: React.FC<PropertiesDataApi> = ({ data }: any) => {
 
   useEffect(() => {
     setMounted(true);
-    // Load CSS files dynamically after component mounts
-    require("slick-carousel/slick/slick.css");
-    require("slick-carousel/slick/slick-theme.css");
   }, []);
 
   const settings = {
