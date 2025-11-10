@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 
 interface Project {
   id: string;
+  slug?: string;
   titulo: string;
 }
 
 interface ProjectsData {
-  allProjetos: Project[];
+  data?: {
+    allProjetos?: Project[];
+  };
 }
 
 const DropdownMenu: React.FC = () => {
@@ -56,12 +59,12 @@ const DropdownMenu: React.FC = () => {
       {isOpen && (
         <div className="absolute mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
           <div className="py-1">
-            {data?.allProjetos?.map((project) => {
+            {data?.data?.allProjetos?.map((project) => {
               console.log(project.titulo);
               return (
                 <a
                   key={project.id}
-                  href={`/projetos/${project.id}`}
+                  href={`/projects/${project.id}`}
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   {project.titulo}

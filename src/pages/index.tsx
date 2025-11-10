@@ -4,20 +4,31 @@ import { MainHero, Skills, Projects, Contact } from "@/components";
 import { api } from "@/services";
 
 export async function getStaticProps() {
-  const projects = await api.AllProjects();
+  try {
+    const projects = await api.AllProjects();
+    const skills = await api.AllSkills();
 
-  const dataSummaryProjects = projects.data.allProjetos;
+    const dataSummaryProjects = Array.isArray(projects?.data?.allProjetos)
+      ? projects.data.allProjetos
+      : [];
 
-  const skills = await api.AllSkills();
+    console.log(dataSummaryProjects);
 
-  const { data } = skills;
+    const allTechnologies = Array.isArray(skills?.data?.allTechnologies)
+      ? skills.data.allTechnologies
+      : [];
 
-  const { allTechnologies } = data;
-
-  return {
-    props: { dataSummaryProjects, allTechnologies },
-    revalidate: 10,
-  };
+    return {
+      props: { dataSummaryProjects, allTechnologies },
+      revalidate: 10,
+    };
+  } catch (error) {
+    console.error("[Home:getStaticProps] Falha ao obter dados:", error);
+    return {
+      props: { dataSummaryProjects: [], allTechnologies: [] },
+      revalidate: 10,
+    };
+  }
 }
 
 export default function Home({ dataSummaryProjects, allTechnologies }: any) {

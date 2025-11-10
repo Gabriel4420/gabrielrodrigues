@@ -6,6 +6,7 @@ import { Carousel } from "flowbite-react";
 // import { Container } from './styles';
 
 const Projects: React.FC<PropertiesDataApi> = ({ data }: PropertiesDataApi) => {
+  console.log(data);
   return (
     <div className="w-full h-full" id="projects">
       <div className="max-w-[1240px] mx-auto px-2 py-16">
@@ -19,17 +20,22 @@ const Projects: React.FC<PropertiesDataApi> = ({ data }: PropertiesDataApi) => {
               (
                 item: {
                   id: string;
+
                   titulo: string;
                   linkDoProjeto: string;
                   imagemDoProjeto: [{ url: string }];
                 },
                 index: number
               ) => {
+                const projectPath = item.id;
+                const bg = Array.isArray(item.imagemDoProjeto)
+                  ? item.imagemDoProjeto.map((x) => x.url)
+                  : [];
                 return (
                   <ProjectItem
                     title={item.titulo}
-                    backgroundImg={item.imagemDoProjeto.map((x) => x.url)}
-                    projectUrl={`/projects/${item.id}`}
+                    backgroundImg={bg}
+                    projectUrl={`/projects/${projectPath}`}
                     key={index}
                   />
                 );

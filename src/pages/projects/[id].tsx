@@ -59,20 +59,22 @@ const Property = ({ project }) => {
       <div className="w-full overflow-x-hidden ">
         <div className="w-screen h-[60vh] relative">
           <div className="absolute top-0 left-0 w-full h-[60vh] bg-black/50 z-10" />
-          {project.imagemDoProjeto[0] && (
-            <Image
-              className="absolute z-1"
-              layout="fill"
-              objectFit="cover"
-              objectPosition="50% 0"
-              src={project.imagemDoProjeto[0].url}
-              alt="/"
-            />
-          )}
+          {Array.isArray(project?.imagemDoProjeto) &&
+            project.imagemDoProjeto.length > 0 &&
+            project.imagemDoProjeto[0]?.url && (
+              <Image
+                className="absolute z-1"
+                layout="fill"
+                objectFit="cover"
+                objectPosition="50% 0"
+                src={project.imagemDoProjeto[0].url}
+                alt={project.titulo || "Imagem do projeto"}
+              />
+            )}
 
           <div className="absolute top-[70%] max-w-[1240px] w-full left-[50%] right-[50%] translate-x-[-50%] translate-y-[-50%] text-white z-10 p-2">
-            <h2 className="py-2">{project.titulo}</h2>
-            <h3>{project.tecnologias}</h3>
+            <h2 className="py-2">{project.titulo || ""}</h2>
+            <h3>{project.tecnologias || ""}</h3>
             <div className="flex justify-start gap-3 py-6">
               <div className="rounded-full bg-sky-700 shadow-lg shadow-gray-400 mr-2 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
                 <a
@@ -134,7 +136,7 @@ const Property = ({ project }) => {
             <br />
             <div
               dangerouslySetInnerHTML={{
-                __html: project.descricao,
+                __html: project.descricao ?? "",
               }}
             />
             {project.linkDoCodigoDoProjeto && (
@@ -158,28 +160,29 @@ const Property = ({ project }) => {
               </button>
             </a>
           </div>
-          {project.tecnologiaAside && (
-            <div className="col-span-4 md:col-span-1 shadow-xl shadow-gray-400 rounded-xl py-4">
-              <div className="p-2">
-                <p className="text-start px-2 font-bold pb-2 ">Tecnologias</p>
-                <div className="grid grid-cols-3 md:grid-cols-1">
-                  {project.tecnologiaAside.map(
-                    (item: string, index: number) => {
-                      return (
-                        <p
-                          key={index}
-                          className="text-gray-600 py-2 flex items-center"
-                        >
-                          <RiRadioButtonFill className="pr-1 text-[#3ddb80]" />{" "}
-                          {item}
-                        </p>
-                      );
-                    }
-                  )}
+          {Array.isArray(project?.tecnologiaAside) &&
+            project.tecnologiaAside.length > 0 && (
+              <div className="col-span-4 md:col-span-1 shadow-xl shadow-gray-400 rounded-xl py-4">
+                <div className="p-2">
+                  <p className="text-start px-2 font-bold pb-2 ">Tecnologias</p>
+                  <div className="grid grid-cols-3 md:grid-cols-1">
+                    {project.tecnologiaAside.map(
+                      (item: string, index: number) => {
+                        return (
+                          <p
+                            key={index}
+                            className="text-gray-600 py-2 flex items-center"
+                          >
+                            <RiRadioButtonFill className="pr-1 text-[#3ddb80]" />{" "}
+                            {item}
+                          </p>
+                        );
+                      }
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
           <Link href="/#projects">
             <button className="hover:underline bg-slate-600  px-8 py-2 cursor-pointer">
               Voltar ao inicio
@@ -192,29 +195,83 @@ const Property = ({ project }) => {
 };
 
 export async function getStaticProps({ params }) {
-  const id = params?.id;
-  const projects = await api.AllProjects();
-  const project = projects.data.allProjetos.find((s) => s.id === id) || null;
+  const slugOrId = params?.id as string;
+  try {
+    console.info("[getStaticProps] Requested project path:", slugOrId);
+    // Try to fetch by slug first
+    const bySlug = await api.ProjectBySlug(slugOrId);
+    const projectBySlug = bySlug?.data?.projeto ?? null;
 
-  if (!project) {
-    return {
-      notFound: true,
+    if (projectBySlug) {
+      console.info("[getStaticProps] Found project by slug");
+      const normalized = {
+        ...projectBySlug,
+        imagemDoProjeto: Array.isArray(projectBySlug?.imagemDoProjeto)
+          ? projectBySlug.imagemDoProjeto
+          : [],
+        tecnologiaAside: Array.isArray(projectBySlug?.tecnologiaAside)
+          ? projectBySlug.tecnologiaAside
+          : [],
+      };
+      return {
+        props: { project: normalized },
+        revalidate: 60,
+      };
+    }
+
+    // Fallback 1: if param looks like a numeric id, fetch directly by id
+    const isNumericId = /^\d+$/.test(slugOrId);
+    let projectById = null as any;
+    if (isNumericId) {
+      const byId = await api.Project(slugOrId);
+      projectById = byId?.data?.projeto ?? null;
+    }
+    // Fallback 2: if not numeric (or direct fetch failed), scan all and match id
+    if (!projectById) {
+      const all = await api.AllProjects();
+      projectById = all?.data?.allProjetos?.find((p) => p.id === slugOrId) || null;
+    }
+
+    if (!projectById) {
+      console.warn(
+        "[getStaticProps] Project not found by slug or id:",
+        slugOrId
+      );
+      return { notFound: true };
+    }
+
+    console.info("[getStaticProps] Found project by id");
+    const normalizedById = {
+      ...projectById,
+      imagemDoProjeto: Array.isArray(projectById?.imagemDoProjeto)
+        ? projectById.imagemDoProjeto
+        : [],
+      tecnologiaAside: Array.isArray(projectById?.tecnologiaAside)
+        ? projectById.tecnologiaAside
+        : [],
     };
+    return {
+      props: { project: normalizedById },
+      revalidate: 60,
+    };
+  } catch (error) {
+    console.error("[getStaticProps] Error fetching project:", error);
+    return { notFound: true };
   }
-
-  return {
-    props: {
-      project,
-      allProjects: projects,
-    },
-    revalidate: 1,
-  };
 }
 
 export async function getStaticPaths() {
-  const projects = await api.AllProjects();
-  const ids = projects.data.allProjetos.map((s) => ({ params: { id: s.id } }));
-  return { paths: ids, fallback: true };
+  try {
+    const projects = await api.AllProjects();
+    const paths = projects.data.allProjetos.map((p) => ({
+      params: { id: p.slug || p.id },
+    }));
+    console.info("[getStaticPaths] Generated paths:", paths.length);
+    return { paths, fallback: "blocking" };
+  } catch (error) {
+    console.error("[getStaticPaths] Error generating paths:", error);
+    return { paths: [], fallback: "blocking" };
+  }
 }
 
 export default Property;

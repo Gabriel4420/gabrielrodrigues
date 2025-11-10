@@ -22,6 +22,7 @@ export default function NavMenu() {
               query ProjectsQuery {
                 allProjetos {
                   id
+                  
                   titulo
                 }
               }
@@ -53,7 +54,7 @@ export default function NavMenu() {
                     {item.menuItemName}
                   </div>
                   <ul className="bg-white absolute left-0 top-full group-hover:flex group-hover:flex-col hidden border border-gray-300 py-1 shadow-md rounded min-w-[200px]">
-                    {data?.data.allProjetos.map(
+                    {data?.data?.allProjetos?.map(
                       (dropdownItem, dropdownIndex) => (
                         <li key={dropdownIndex}>
                           <Link
