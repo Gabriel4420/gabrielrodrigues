@@ -60,7 +60,6 @@ const DropdownMenu: React.FC = () => {
         <div className="absolute mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
           <div className="py-1">
             {data?.data?.allProjetos?.map((project) => {
-              console.log(project.titulo);
               return (
                 <a
                   key={project.id}

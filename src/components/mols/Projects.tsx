@@ -6,7 +6,7 @@ import { Carousel } from "flowbite-react";
 // import { Container } from './styles';
 
 const Projects: React.FC<PropertiesDataApi> = ({ data }: PropertiesDataApi) => {
-  console.log(data);
+
   return (
     <div className="w-full h-full" id="projects">
       <div className="max-w-[1240px] mx-auto px-2 py-16">

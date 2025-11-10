@@ -12,8 +12,6 @@ export async function getStaticProps() {
       ? projects.data.allProjetos
       : [];
 
-    console.log(dataSummaryProjects);
-
     const allTechnologies = Array.isArray(skills?.data?.allTechnologies)
       ? skills.data.allTechnologies
       : [];
