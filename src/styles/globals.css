@@ -37,3 +37,54 @@ html {
     @apply shadow-xl shadow-gray-400 rounded-xl uppercase  text-white;
   }
 }
+
+
+/* Add these styles to your global CSS */
+.skill-slider .slick-prev,
+.skill-slider .slick-next {
+  width: 40px;
+  height: 40px;
+  background: #3ddb80;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.skill-slider .slick-prev:hover,
+.skill-slider .slick-next:hover {
+  background: #2cb76a;
+}
+
+.skill-slider .slick-prev {
+  left: -50px;
+}
+
+.skill-slider .slick-next {
+  right: -50px;
+}
+
+.skill-slider .slick-prev:before,
+.skill-slider .slick-next:before {
+  font-size: 20px;
+}
+
+.skill-slider .slick-dots li button:before {
+  color: #3ddb80;
+}
+
+.skill-slider .slick-dots li.slick-active button:before {
+  color: #2cb76a;
+}
+
+.skill-slider .slick-track {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.skill-slider .slick-slide {
+  height: inherit;
+}
+
+.skill-slider .slick-slide > div {
+  height: 100%;
+}
