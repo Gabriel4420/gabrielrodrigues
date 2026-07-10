@@ -1,112 +1,172 @@
 "use client";
-/* eslint-disable @next/next/no-img-element */
-import Link from "next/link";
-import React, { useRef, useState } from "react";
+
+import Image from "next/image";
+import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineMail } from "react-icons/ai";
 import { BsFillPersonLinesFill } from "react-icons/bs";
-import { FaLinkedinIn, FaGithub } from "react-icons/fa";
+import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { HiOutlineChevronDoubleUp } from "react-icons/hi";
 
+const contactLinks = [
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/gabriel442021/",
+    icon: FaLinkedinIn,
+  },
+  {
+    label: "GitHub",
+    href: "https://www.github.com/Gabriel4420",
+    icon: FaGithub,
+  },
+  {
+    label: "E-mail",
+    href: "mailto:gabriel_rodrigues_perez@hotmail.com",
+    icon: AiOutlineMail,
+  },
+  {
+    label: "Linktree",
+    href: "https://linktr.ee/gabriel4420",
+    icon: BsFillPersonLinesFill,
+  },
+];
+
 const Contact: React.FC = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "0px 0px -15% 0px", threshold: 0.2 },
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="w-full lg:h-screen" id="contact">
-      <div className="max-w-310 m-auto px-2 py-16 w-full">
-        <p className="text-xl tracking-widest uppercase text-[#3ddb80]">
-          Contato
-        </p>
-        <h2 className="py-4">Vamos tomar um café ?</h2>
-        <div className="grid lg:grid-cols-1">
-          <div className="col-span-1 lg:col-span-1 lg:w-1/2 h-full shadow-xl shadow-gray-400 rounded-xl p-2">
-            <div className="lg:p-2 h-full">
-              <div className="flex justify-center gap-10 ">
-                {/* <img
-                  src="/../assets/background.jpg"
-                  alt="computador em uma mesa"
-                  className="rounded-xl w-full h-100 "
-                /> */}
-                <img
-                  src="/../assets/perfil.jpg"
-                  alt="Gabriel Rodrigues Perez"
-                  className="rounded-full hover:scale-105 ease-in duration-300 h-52 w-52"
-                />
-              </div>
-              <div className="flex flex-col w-full">
-                <h2 className="py-2 text-gray-700 text-center">
-                  Gabriel Rodrigues
-                </h2>
-                <p className="py-2 text-gray-700 text-center">
-                  Desenvolvedor Fullstack
-                </p>
-                <p className="py-4 text-center">
-                  Estou disponivel para freelances ou CLT. <br />
-                  Entre em contato comigo e vamos conversar !
-                </p>
-              </div>
-              <div>
-                <div className="flex justify-between py-4">
-                  <div className="rounded-full shadow-lg shadow-gray-400 mr-2 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
-                    <a
-                      title="linkedin"
-                      rel="no-referrer noopener no-follow"
-                      target="_blank"
-                      href="https://www.linkedin.com/in/gabriel442021/"
-                    >
-                      <FaLinkedinIn
-                        size={25}
-                        href="https://www.linkedin.com/in/gabriel442021/"
-                      />
-                    </a>
-                  </div>
-                  <div className="rounded-full shadow-lg shadow-gray-400 mr-2 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
-                    <a
-                      title="github"
-                      rel="no-referrer noopener no-follow"
-                      target="_blank"
-                      href="https://www.github.com/Gabriel4420"
-                    >
-                      <FaGithub size={25} />
-                    </a>
-                  </div>
-                  <div className="rounded-full shadow-lg shadow-gray-400 mr-2 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
-                    <a
-                      title="email"
-                      rel="no-referrer noopener no-follow"
-                      target="_blank"
-                      href="mailto:gabriel_rodrigues_perez@hotmail.com"
-                    >
-                      <AiOutlineMail
-                        size={25}
-                        href="mailto:gabriel_rodrigues_perez@hotmail.com"
-                      />
-                    </a>
-                  </div>
-                  <div className="rounded-full shadow-lg shadow-gray-400 mr-2 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
-                    <a
-                      title="linktree"
-                      rel="no-referrer noopener no-follow"
-                      target="_blank"
-                      href="https://linktr.ee/gabriel4420"
-                    >
-                      <BsFillPersonLinesFill
-                        size={25}
-                        href="https://linktr.ee/gabriel4420"
-                      />
-                    </a>
-                  </div>
-                </div>
-              </div>
+    <section
+      className="w-full overflow-hidden px-4 py-24 sm:px-6 lg:min-h-screen lg:px-8"
+      data-visible={isVisible}
+      id="contact"
+      ref={sectionRef}
+    >
+      <div className="contact-reveal mx-auto flex w-full max-w-[1240px] flex-col gap-12">
+        <div className="max-w-3xl">
+          <p className="text-sm font-bold uppercase tracking-[0.28em] text-[#3ddb80]">
+            Contato
+          </p>
+          <h2 className="mt-4 text-4xl leading-tight text-gray-800 sm:text-5xl">
+            Vamos tomar um café e tirar sua ideia do papel?
+          </h2>
+          <p className="mt-5 max-w-2xl text-base leading-8 text-gray-600 sm:text-lg">
+            Disponível para projetos freelance, oportunidades CLT e parcerias em
+            produtos digitais com foco em performance, usabilidade e interfaces
+            bem acabadas.
+          </p>
+        </div>
+
+        <div className="grid items-stretch gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="contact-reveal-item flex min-h-[420px] flex-col justify-between rounded-[28px] border border-white/80 bg-white/55 p-6 shadow-[0_24px_80px_rgba(31,41,55,0.12)] backdrop-blur sm:p-8 lg:p-10">
+            <div>
+              <span className="inline-flex w-fit items-center rounded-full border border-[#3ddb80]/30 bg-[#3ddb80]/10 px-4 py-2 text-sm font-semibold text-[#259b5d]">
+                Aberto para novas conversas
+              </span>
+
+              <h3 className="mt-8 max-w-2xl text-3xl leading-tight text-gray-800 sm:text-4xl">
+                Construo experiências web modernas, funcionais e pensadas para
+                gerar resultado.
+              </h3>
+
+              <p className="mt-5 max-w-2xl text-base leading-8 text-gray-600">
+                Se você precisa evoluir um produto, criar uma landing page,
+                desenvolver uma aplicação ou validar uma ideia, me envie uma
+                mensagem com o contexto inicial.
+              </p>
+            </div>
+
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+              <a
+                className="wrap- min-h-12 items-center justify-center rounded-full bg-[#1f2937] px-12 py-3 text-[12px] font-bold uppercase tracking-[0.16em] text-white shadow-lg shadow-gray-400/40 transition duration-300 ease-out hover:-translate-y-1 hover:bg-[#3ddb80] hover:text-gray-900 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#3ddb80]/35"
+                href="mailto:gabriel_rodrigues_perez@hotmail.com"
+              >
+                Enviar e-mail
+              </a>
+
+              <p className="text-sm leading-6 text-gray-500">
+                Normalmente respondo com próximos passos e uma proposta de
+                alinhamento.
+              </p>
             </div>
           </div>
-        </div>
-        <div className="flex justify-center py-12">
-          <Link href="">
-            <div className="rounded-full shadow-lg shadow-gray-400 mr-2 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
-              <HiOutlineChevronDoubleUp className="text-[#3ddb80]" size={30} />
+
+          <aside className="contact-reveal-item flex flex-col justify-between rounded-[28px] bg-[#1f2937] p-6 text-white shadow-[0_24px_80px_rgba(31,41,55,0.2)] sm:p-8">
+            <div className="flex flex-col items-center text-center">
+              <div className="contact-float rounded-full bg-[#3ddb80]/20 p-3 ring-1 ring-white/10">
+                <Image
+                  alt="Gabriel Rodrigues Perez"
+                  className="h-44 w-44 rounded-full border-4 border-white object-cover shadow-2xl sm:h-52 sm:w-52"
+                  height={208}
+                  priority
+                  src="/assets/perfil.jpg"
+                  width={208}
+                />
+              </div>
+
+              <h3 className="mt-7 text-2xl text-white">Gabriel Rodrigues</h3>
+              <p className="mt-2 text-sm font-semibold uppercase tracking-[0.18em] text-[#3ddb80]">
+                Desenvolvedor Fullstack
+              </p>
+              <p className="mt-5 max-w-sm text-sm leading-7 text-white/70">
+                React, Next.js, Node.js e interfaces com atenção a detalhe,
+                clareza e manutenção.
+              </p>
             </div>
-          </Link>
+
+            <div className="mt-8 grid grid-cols-2 gap-3">
+              {contactLinks.map(({ href, icon: Icon, label }) => (
+                <a
+                  aria-label={label}
+                  className="group flex min-h-20 items-center justify-between rounded-2xl border border-white/10 bg-white/8 px-4 py-3 text-sm font-semibold text-white transition duration-300 ease-out hover:-translate-y-1 hover:border-[#3ddb80]/50 hover:bg-[#3ddb80] hover:text-gray-900 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#3ddb80]/35"
+                  href={href}
+                  key={label}
+                  rel={
+                    href.startsWith("http") ? "noopener noreferrer" : undefined
+                  }
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                >
+                  <span>{label}</span>
+                  <Icon
+                    aria-hidden="true"
+                    className="text-2xl transition duration-300 group-hover:scale-110"
+                  />
+                </a>
+              ))}
+            </div>
+          </aside>
+        </div>
+
+        <div className="contact-reveal-item flex justify-center">
+          <a
+            aria-label="Voltar ao topo"
+            className="rounded-full bg-white/70 p-4 text-[#3ddb80] shadow-lg shadow-gray-400/40 ring-1 ring-white/80 transition duration-300 ease-out hover:-translate-y-1 hover:bg-[#3ddb80] hover:text-gray-900 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#3ddb80]/35"
+            href="#"
+          >
+            <HiOutlineChevronDoubleUp aria-hidden="true" size={30} />
+          </a>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

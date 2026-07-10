@@ -36,6 +36,68 @@ html {
   }
 }
 
+.contact-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-visible="true"] .contact-reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.contact-reveal-item {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-visible="true"] .contact-reveal-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-visible="true"] .contact-reveal-item:nth-child(2) {
+  transition-delay: 120ms;
+}
+
+[data-visible="true"] .contact-reveal-item:nth-child(3) {
+  transition-delay: 220ms;
+}
+
+.contact-float {
+  animation: contact-float 5s ease-in-out infinite;
+}
+
+@keyframes contact-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-reveal,
+  .contact-reveal-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .contact-float {
+    animation: none;
+  }
+}
+
 
 /* Add these styles to your global CSS */
 .skill-slider .slick-prev,

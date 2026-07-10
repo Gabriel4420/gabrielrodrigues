@@ -1,0 +1,12 @@
+⚠ Invalid next.config.js options detected: 
+⚠     Unrecognized key(s) in object: 'turboPackFileSystemCacheForDev', 'turboPackFileSystemCacheForBuild' at "experimental"
+⚠     Unrecognized key(s) in object: 'reactRefresh' at "turbopack"
+⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+⨯ Another next dev server is already running.
+
+- Local:        http://localhost:3000
+- PID:          14224
+- Dir:          E:\Projetos\workflow\Pessoal\gabrielrodrigues
+- Log:          .next\dev\logs\next-development.log
+
+Run taskkill /PID 14224 /F to stop it.
