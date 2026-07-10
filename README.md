@@ -1,109 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Gabriel Rodrigues | Portfólio
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=111111)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![DatoCMS](https://img.shields.io/badge/DatoCMS-GraphQL-FF7751?style=for-the-badge&logo=datocms&logoColor=white)
 
-First, run the development server:
+Portfólio pessoal desenvolvido para apresentar minha trajetória como desenvolvedor fullstack, reunir projetos, destacar tecnologias utilizadas e centralizar canais de contato profissional.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+![Tela inicial do portfólio](public/tela_inicial.png)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Sobre o projeto
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+O projeto funciona como uma vitrine profissional, com uma interface focada em navegação simples, identidade visual própria e conteúdo dinâmico vindo do DatoCMS. A página inicial apresenta uma introdução, lista de habilidades, projetos em destaque e uma área de contato.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Além da home, o portfólio possui páginas individuais para projetos, permitindo apresentar descrição, tecnologias, imagens, links para o projeto publicado e repositório de código.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Tecnologias utilizadas
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- DatoCMS
+- GraphQL
+- React Icons
+- React Slick
+- Nodemailer
 
-## Learn More
+## Conteúdo apresentado
 
-To learn more about Next.js, take a look at the following resources:
+- Apresentação profissional
+- Stack e habilidades técnicas
+- Projetos cadastrados via CMS
+- Páginas individuais para detalhes dos projetos
+- Links para deploy, código, LinkedIn, GitHub e e-mail
+- Seção de contato para oportunidades, freelances e conexões profissionais
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Integração com CMS
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Os projetos e tecnologias são consumidos pela API GraphQL do DatoCMS. A aplicação usa geração estática com revalidação, permitindo manter o conteúdo atualizado sem precisar alterar diretamente o código a cada novo projeto publicado.
 
-## Deploy on Vercel
+## Deploy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Projeto publicado na Vercel:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-## Integração com DatoCMS, Slugs e Páginas de Projetos
-
-- Rotas de projetos: as páginas individuais estão em `src/pages/projects/[id].tsx`. Embora o nome do arquivo use `id`, a rota aceita tanto `slug` quanto `id`.
-- Geração de páginas: usa SSG com ISR e `fallback: 'blocking'`, permitindo criação automática de páginas na primeira visita após cadastro.
-- Mapeamento: o `slug` é preferido nas URLs. Se não houver `slug`, cai para `id`.
-
-### Data Fetching
-
-- `src/services/api.ts`
-  - `AllProjects`: retorna `id`, `slug`, `titulo`, `descricao`, `linkDoProjeto`, `linkDoCodigoDoProjeto`, `tecnologias`, `tecnologiaAside`, `imagemDoProjeto { url }`.
-  - `ProjectBySlug(slug)`: busca projeto diretamente pelo `slug` via variáveis GraphQL.
-  - `Project(id)`: fallback de busca por `id` com campos completos.
-
-### ISR e Fallback
-
-- `getStaticPaths`: gera `paths` com `slug || id` e usa `fallback: 'blocking'`.
-- `getStaticProps`: tenta `ProjectBySlug(slug)` primeiro; se não achar, busca todos e encontra por `id`. Dados são normalizados para evitar falhas de prerender.
-
-### Revalidação On‑Demand (Webhook)
-
-- Endpoint: `src/pages/api/revalidate.ts`
-  - Revalida páginas individuais via `GET/POST` em `/api/revalidate?token=<REVALIDATE_TOKEN>` com `path=<slug-ou-id>`.
-  - Exemplo de requisição (POST):
-
-```bash
-curl -X POST "https://seu-dominio/api/revalidate?token=$REVALIDATE_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"path":"meu-projeto-slug"}'
-```
-
-#### Configurando Webhook no DatoCMS
-
-- Em DatoCMS, crie um webhook que dispare em publicação/atualização do modelo "Projeto".
-- Aponte para: `https://seu-dominio/api/revalidate?token=<REVALIDATE_TOKEN>`.
-- Envie no body JSON o campo `path` com o `slug` do projeto publicado.
-
-### Variáveis de Ambiente
-
-- `NEXT_PUBLIC_API_KEY`: token de acesso à API GraphQL do DatoCMS.
-- `REVALIDATE_TOKEN`: token secreto para proteção do endpoint de revalidate.
-
-### Validação de Campos no DatoCMS
-
-- Modelo "Projeto":
-  - `slug`: obrigatório e único (idealmente gerado a partir de `titulo`).
-  - `titulo`: obrigatório.
-  - `descricao`: obrigatório.
-  - `linkDoProjeto`: obrigatório, URL válida.
-  - `imagemDoProjeto`: ao menos uma imagem com `url`.
-
-### Tratamento de Erros e Logs
-
-- Logs no servidor: `console.info`, `console.warn`, `console.error` em `getStaticProps`/`getStaticPaths`.
-- O endpoint `/api/revalidate` também loga tentativas e erros.
-- O componente de projeto valida arrays e strings antes de renderizar (evita erro "Cannot read properties of undefined" no build/prerender).
-
-### Testes Locais
-
-- `npm run dev`: cadastre um projeto no DatoCMS e acesse `/projects/<slug>`.
-- `npm run build`: garante que o prerender não falhe. Em caso de erro, verifique se os campos obrigatórios estão preenchidos e se as variáveis de ambiente estão configuradas.
-
-### Solução de Problemas
-
-- 404 em projeto novo:
-  - Verifique se a URL usa `slug` correto.
-  - A primeira visita com `fallback: 'blocking'` deve gerar a página; caso contrário, acione o webhook de revalidate.
-- Erro de prerender (build):
-  - Cheque logs; normalmente é dado ausente. Garanta validação dos campos no DatoCMS.
-- Imagens não carregam:
-  - Confirme `next.config.js` inclui domínios do DatoCMS (`www.datocms-assets.com`).
+[gabrielrodrigues.vercel.app](https://gabrielrodrigues.vercel.app/)
