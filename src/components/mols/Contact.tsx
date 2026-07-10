@@ -8,84 +8,38 @@ import { FaLinkedinIn, FaGithub } from "react-icons/fa";
 import { HiOutlineChevronDoubleUp } from "react-icons/hi";
 
 const Contact: React.FC = () => {
-  const [email, setEmail] = useState<string>("");
-  const [subject, setSubject] = useState<string>("");
-  const [message, setMessage] = useState<string>("");
-  const [phone, setPhone] = useState<string>("");
-  const [name, setName] = useState<string>("");
-  const [status, setStatus] = useState<string>("");
-
-  const sendEmailForm = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus("sending");
-
-    try {
-      const response = await fetch(
-        "https://personal-api-sender-email.vercel.app/email/send",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin":
-              "https://gabrielrodrigues.vercel.app",
-          },
-          body: JSON.stringify({
-            email,
-            subject,
-            message,
-            phone,
-            name,
-          }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setStatus("success");
-        // Reset form
-        setEmail("");
-        setSubject("");
-        setMessage("");
-        setPhone("");
-        setName("");
-        alert("Email enviado com sucesso!");
-      } else {
-        setStatus("error");
-        alert(data.error || "Erro ao enviar email");
-      }
-    } catch (error) {
-      console.error("Error sending email:", error);
-      setStatus("error");
-      alert("Erro ao enviar email");
-    } finally {
-      setTimeout(() => setStatus(""), 3000);
-    }
-  };
-
   return (
     <div className="w-full lg:h-screen" id="contact">
-      <div className="max-w-[77.5rem] m-auto px-2 py-16 w-full">
+      <div className="max-w-310 m-auto px-2 py-16 w-full">
         <p className="text-xl tracking-widest uppercase text-[#3ddb80]">
           Contato
         </p>
         <h2 className="py-4">Vamos tomar um café ?</h2>
-        <div className="grid lg:grid-cols-5 gap-8">
-          <div className="col-span-3 lg:col-span-2 w-full h-full shadow-xl shadow-gray-400 rounded-xl p-4">
-            <div className="lg:p-4 h-full">
-              <div>
-                <img
+        <div className="grid lg:grid-cols-1">
+          <div className="col-span-1 lg:col-span-1 lg:w-1/2 h-full shadow-xl shadow-gray-400 rounded-xl p-2">
+            <div className="lg:p-2 h-full">
+              <div className="flex justify-center gap-10 ">
+                {/* <img
                   src="/../assets/background.jpg"
                   alt="computador em uma mesa"
-                  className="rounded-xl hover:scale-105 ease-in duration-300"
+                  className="rounded-xl w-full h-100 "
+                /> */}
+                <img
+                  src="/../assets/perfil.jpg"
+                  alt="Gabriel Rodrigues Perez"
+                  className="rounded-full hover:scale-105 ease-in duration-300 h-52 w-52"
                 />
               </div>
-              <div>
-                <h2 className="py-2 text-gray-700">Gabriel Rodrigues</h2>
-                <p className="py-2 text-gray-700">Desenvolvedor Fullstack</p>
-                <p className="py-4">
+              <div className="flex flex-col w-full">
+                <h2 className="py-2 text-gray-700 text-center">
+                  Gabriel Rodrigues
+                </h2>
+                <p className="py-2 text-gray-700 text-center">
+                  Desenvolvedor Fullstack
+                </p>
+                <p className="py-4 text-center">
                   Estou disponivel para freelances ou CLT. <br />
-                  Entre em contato comigo e vamos conversar
+                  Entre em contato comigo e vamos conversar !
                 </p>
               </div>
               <div>
@@ -141,100 +95,6 @@ const Contact: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-
-          <div className="col-span-3 w-full h-auto shadow-xl shadow-gray-400 rounded-xl lg:p-4">
-            <div className="p-4">
-              <form onSubmit={sendEmailForm}>
-                <div className="grid md:grid-cols-2 gap-4 w-full">
-                  <div className="flex flex-col">
-                    <label htmlFor="name" className="uppercase text-sm py-2">
-                      Nome
-                    </label>
-                    <input
-                      id="name"
-                      name="name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="Digite seu nome completo"
-                      className="border-2 rounded-lg p-3 flex border-gray-300"
-                      required
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <label htmlFor="phone" className="uppercase text-sm py-2">
-                      Telefone
-                    </label>
-                    <input
-                      id="phone"
-                      name="phone"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      type="tel"
-                      placeholder="Digite seu telefone"
-                      className="border-2 rounded-lg p-3 flex border-gray-300"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="flex flex-col py-2">
-                  <label htmlFor="email" className="uppercase text-sm py-2">
-                    Email
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Digite seu email"
-                    className="border-2 rounded-lg p-3 flex border-gray-300"
-                    required
-                  />
-                </div>
-                <div className="flex flex-col py-2">
-                  <label htmlFor="subject" className="uppercase text-sm py-2">
-                    Assunto
-                  </label>
-                  <input
-                    id="subject"
-                    name="subject"
-                    type="text"
-                    value={subject}
-                    onChange={(e) => setSubject(e.target.value)}
-                    placeholder="Digite o assunto"
-                    className="border-2 rounded-lg p-3 flex border-gray-300"
-                    required
-                  />
-                </div>
-                <div className="flex flex-col py-2">
-                  <label htmlFor="message" className="uppercase text-sm py-2">
-                    Mensagem
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Insira sua mensagem"
-                    className="border-2 rounded-lg p-3 border-gray-300"
-                    required
-                  ></textarea>
-                </div>
-                <button
-                  className="bg-[#3ddb80] w-1/2 p-4 text-white font-bold rounded-lg mt-4 hover:bg-[#3ddb80] disabled:opacity-50"
-                  type="submit"
-                  disabled={status === "sending"}
-                >
-                  {status === "sending"
-                    ? "Enviando..."
-                    : status === "success"
-                    ? "Enviado!"
-                    : status === "error"
-                    ? "Erro ao enviar"
-                    : "Enviar"}
-                </button>
-              </form>
             </div>
           </div>
         </div>
