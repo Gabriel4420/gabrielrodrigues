@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@datocms/cma-client-browser": "^5.5.4",
+    "@tailwindcss/postcss": "^4.3.2",
     "@types/node": "18.16.0",
     "@types/nodemailer": "^6.4.17",
     "@types/react": "18.0.38",
