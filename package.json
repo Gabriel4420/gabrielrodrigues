@@ -9,7 +9,7 @@
     "lint": "eslint src --max-warnings=0"
   },
   "engines": {
-    "node": "26.4.0",
+    "node": "24.x",
     "npm": "11.17.0"
   },
   "dependencies": {
