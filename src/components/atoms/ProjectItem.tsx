@@ -2,36 +2,35 @@ import { PropertiesProjectItem } from "@/interfaces";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { usePreferences } from "@/contexts/PreferencesContext";
 
 const ProjectItem = ({
   title,
   backgroundImg,
   projectUrl,
-  key,
+  priority = false,
 }: PropertiesProjectItem) => {
+  const imageUrl = backgroundImg.find(Boolean);
+  const { t } = usePreferences();
+
   return (
-    <div
-      className="relative block items-center justify-center h-[500px]  w-full shadow-xl shadow-gray-400 rounded-xl group hover:bg-gradient-to-r from-[#98e49e] to-[#19ba5f]"
-      key={key}
+    <Link
+      href={projectUrl}
+      className="project-card group"
+      aria-label={t("card.open", { title })}
     >
-      <Image
-        className="rounded-xl w-full h-full  group-hover:opacity-10"
-        width="800"
-        height="400"
-        src={backgroundImg[0]}
-        alt="/"
-      />
-      <div className="hidden group-hover:block absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
-        <h3 className="text-2xl text-white tracking-wider text-center py-3">
-          {title}
-        </h3>
-        <Link href={projectUrl}>
-          <p className="text-center py-2 px-10 rounded-lg bg-white text-gray-700 font-bold text-lg cursor-pointer hover:underline">
-            Saiba mais
-          </p>
-        </Link>
+      {imageUrl ? (
+        <Image className="project-card__image" fill priority={priority} sizes="(max-width: 768px) 92vw, 1100px" src={imageUrl} alt={t("card.preview", { title })} />
+      ) : (
+        <div className="project-card__fallback" aria-hidden="true" />
+      )}
+      <div className="project-card__scrim" />
+      <div className="project-card__content">
+        <span className="project-card__eyebrow">{t("card.selected")}</span>
+        <h3>{title}</h3>
+        <span className="project-card__link">{t("card.explore")} <span aria-hidden="true">↗</span></span>
       </div>
-    </div>
+    </Link>
   );
 };
 

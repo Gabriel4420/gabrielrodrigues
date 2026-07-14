@@ -6,6 +6,7 @@ import { AiOutlineMail } from "react-icons/ai";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { HiOutlineChevronDoubleUp } from "react-icons/hi";
+import { usePreferences } from "@/contexts/PreferencesContext";
 
 const contactLinks = [
   {
@@ -33,6 +34,7 @@ const contactLinks = [
 const Contact: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const { t } = usePreferences();
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -64,15 +66,13 @@ const Contact: React.FC = () => {
       <div className="contact-reveal mx-auto flex w-full max-w-[1240px] flex-col gap-12">
         <div className="max-w-3xl">
           <p className="text-sm font-bold uppercase tracking-[0.28em] text-[#3ddb80]">
-            Contato
+            {t("contact.kicker")}
           </p>
           <h2 className="mt-4 text-4xl leading-tight text-gray-800 sm:text-5xl">
-            Vamos tomar um café e tirar sua ideia do papel?
+            {t("contact.title")}
           </h2>
           <p className="mt-5 max-w-2xl text-base leading-8 text-gray-600 sm:text-lg">
-            Disponível para projetos freelance, oportunidades CLT e parcerias em
-            produtos digitais com foco em performance, usabilidade e interfaces
-            bem acabadas.
+            {t("contact.intro")}
           </p>
         </div>
 
@@ -80,32 +80,28 @@ const Contact: React.FC = () => {
           <div className="contact-reveal-item flex min-h-[420px] flex-col justify-between rounded-[28px] border border-white/80 bg-white/55 p-6 shadow-[0_24px_80px_rgba(31,41,55,0.12)] backdrop-blur sm:p-8 lg:p-10">
             <div>
               <span className="inline-flex w-fit items-center rounded-full border border-[#3ddb80]/30 bg-[#3ddb80]/10 px-4 py-2 text-sm font-semibold text-[#259b5d]">
-                Aberto para novas conversas
+                {t("contact.open")}
               </span>
 
               <h3 className="mt-8 max-w-2xl text-3xl leading-tight text-gray-800 sm:text-4xl">
-                Construo experiências web modernas, funcionais e pensadas para
-                gerar resultado.
+                {t("contact.build")}
               </h3>
 
               <p className="mt-5 max-w-2xl text-base leading-8 text-gray-600">
-                Se você precisa evoluir um produto, criar uma landing page,
-                desenvolver uma aplicação ou validar uma ideia, me envie uma
-                mensagem com o contexto inicial.
+                {t("contact.detail")}
               </p>
             </div>
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
               <a
-                className="wrap- min-h-12 items-center justify-center rounded-full bg-[#1f2937] px-12 py-3 text-[12px] font-bold uppercase tracking-[0.16em] text-white shadow-lg shadow-gray-400/40 transition duration-300 ease-out hover:-translate-y-1 hover:bg-[#3ddb80] hover:text-gray-900 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#3ddb80]/35"
+                className="flex min-h-12 items-center justify-center rounded-full bg-[#1f2937] px-12 py-3 text-[12px] font-bold uppercase tracking-[0.16em] text-white shadow-lg shadow-gray-400/40 transition duration-300 ease-out hover:-translate-y-1 hover:bg-[#3ddb80] hover:text-gray-900 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#3ddb80]/35"
                 href="mailto:gabriel_rodrigues_perez@hotmail.com"
               >
-                Enviar e-mail
+                {t("contact.email")}
               </a>
 
               <p className="text-sm leading-6 text-gray-500">
-                Normalmente respondo com próximos passos e uma proposta de
-                alinhamento.
+                {t("contact.reply")}
               </p>
             </div>
           </div>
@@ -125,11 +121,10 @@ const Contact: React.FC = () => {
 
               <h3 className="mt-7 text-2xl text-white">Gabriel Rodrigues</h3>
               <p className="mt-2 text-sm font-semibold uppercase tracking-[0.18em] text-[#3ddb80]">
-                Desenvolvedor Fullstack
+                {t("contact.role")}
               </p>
               <p className="mt-5 max-w-sm text-sm leading-7 text-white/70">
-                React, Next.js, Node.js e interfaces com atenção a detalhe,
-                clareza e manutenção.
+                {t("contact.stack")}
               </p>
             </div>
 
@@ -158,7 +153,7 @@ const Contact: React.FC = () => {
 
         <div className="contact-reveal-item flex justify-center">
           <a
-            aria-label="Voltar ao topo"
+            aria-label={t("contact.top")}
             className="rounded-full bg-white/70 p-4 text-[#3ddb80] shadow-lg shadow-gray-400/40 ring-1 ring-white/80 transition duration-300 ease-out hover:-translate-y-1 hover:bg-[#3ddb80] hover:text-gray-900 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#3ddb80]/35"
             href="#"
           >
