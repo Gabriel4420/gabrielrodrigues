@@ -41,13 +41,7 @@ const nextConfig = {
     }
     return config;
   },
-  turbopack: {
-    reactRefresh: true,
-  },
-  experimental: {
-    turboPackFileSystemCacheForDev: true,
-    turboPackFileSystemCacheForBuild: true,
-  },
+  turbopack: {},
 };
 
 module.exports = nextConfig;
