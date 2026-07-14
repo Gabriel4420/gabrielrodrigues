@@ -6,6 +6,17 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white)
 ![DatoCMS](https://img.shields.io/badge/DatoCMS-GraphQL-FF7751?style=for-the-badge&logo=datocms&logoColor=white)
 
+## Configuração do DatoCMS
+
+Copie `.env.example` para `.env.local` e informe um token somente de leitura:
+
+```env
+DATOCMS_API_TOKEN=seu_token_aqui
+```
+
+O token precisa ter a permissão **Access the Content Delivery API**. Reinicie o
+servidor de desenvolvimento depois de alterar variáveis de ambiente.
+
 Portfólio pessoal desenvolvido para apresentar minha trajetória como desenvolvedor fullstack, reunir projetos, destacar tecnologias utilizadas e centralizar canais de contato profissional.
 
 ![Tela inicial do portfólio](public/tela_inicial.png)
