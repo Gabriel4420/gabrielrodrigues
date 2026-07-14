@@ -1,7 +1,13 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import React, { CSSProperties, PointerEvent, useEffect, useRef, useState } from "react";
+import React, {
+  CSSProperties,
+  PointerEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { HiArrowLeft, HiArrowUpRight } from "react-icons/hi2";
 import { api } from "@/services";
 import { usePreferences } from "@/contexts/PreferencesContext";
@@ -22,8 +28,12 @@ type Project = {
 const ProjectPage = ({ project }: { project: Project }) => {
   const [readingProgress, setReadingProgress] = useState(0);
   const mediaRef = useRef<HTMLDivElement>(null);
-  const images = Array.isArray(project.imagemDoProjeto) ? project.imagemDoProjeto : [];
-  const technologies = Array.isArray(project.tecnologiaAside) ? project.tecnologiaAside : [];
+  const images = Array.isArray(project.imagemDoProjeto)
+    ? project.imagemDoProjeto
+    : [];
+  const technologies = Array.isArray(project.tecnologiaAside)
+    ? project.tecnologiaAside
+    : [];
   const title = project.titulo || "Projeto digital";
   const { t } = usePreferences();
 
@@ -32,8 +42,11 @@ const ProjectPage = ({ project }: { project: Project }) => {
     const updateProgress = () => {
       window.cancelAnimationFrame(frame);
       frame = window.requestAnimationFrame(() => {
-        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-        setReadingProgress(scrollable > 0 ? Math.min(window.scrollY / scrollable, 1) : 0);
+        const scrollable =
+          document.documentElement.scrollHeight - window.innerHeight;
+        setReadingProgress(
+          scrollable > 0 ? Math.min(window.scrollY / scrollable, 1) : 0,
+        );
       });
     };
     updateProgress();
@@ -46,7 +59,8 @@ const ProjectPage = ({ project }: { project: Project }) => {
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
     const media = mediaRef.current;
-    if (!media || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!media || window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+      return;
     const bounds = media.getBoundingClientRect();
     const x = (event.clientX - bounds.left) / bounds.width - 0.5;
     const y = (event.clientY - bounds.top) / bounds.height - 0.5;
@@ -65,7 +79,10 @@ const ProjectPage = ({ project }: { project: Project }) => {
     <>
       <Head>
         <title>{title} | Gabriel Rodrigues</title>
-        <meta name="description" content={`Detalhes, tecnologias e resultado do projeto ${title}.`} />
+        <meta
+          name="description"
+          content={`Detalhes, tecnologias e resultado do projeto ${title}.`}
+        />
         {images[0]?.url && <meta property="og:image" content={images[0].url} />}
       </Head>
 
@@ -74,23 +91,37 @@ const ProjectPage = ({ project }: { project: Project }) => {
       </div>
 
       <main className="project-detail">
-        <section className="project-detail__hero" aria-labelledby="project-title">
+        <section
+          className="project-detail__hero"
+          aria-labelledby="project-title"
+        >
           <div className="project-detail__hero-copy">
             <Link className="project-detail__back" href="/#projects">
               <HiArrowLeft aria-hidden="true" /> {t("detail.all")}
             </Link>
-            <p className="project-detail__kicker">{t("detail.case")} · {project.id.slice(0, 8)}</p>
+            <p className="project-detail__kicker">
+              {t("detail.case")} · {project.id.slice(0, 8)}
+            </p>
             <h1 id="project-title">{title}</h1>
             <div className="project-detail__hero-meta">
               <p>{project.tecnologias || t("detail.fallback")}</p>
               <div className="project-detail__actions">
                 {project.linkDoProjeto && (
-                  <a href={project.linkDoProjeto} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={project.linkDoProjeto}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {t("detail.live")} <HiArrowUpRight aria-hidden="true" />
                   </a>
                 )}
                 {project.linkDoCodigoDoProjeto && (
-                  <a className="project-detail__action--ghost" href={project.linkDoCodigoDoProjeto} target="_blank" rel="noopener noreferrer">
+                  <a
+                    className="project-detail__action--ghost"
+                    href={project.linkDoCodigoDoProjeto}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {t("detail.code")} <HiArrowUpRight aria-hidden="true" />
                   </a>
                 )}
@@ -105,8 +136,14 @@ const ProjectPage = ({ project }: { project: Project }) => {
           >
             <div ref={mediaRef} className="project-detail__media">
               <div className="project-detail__browser-bar" aria-hidden="true">
-                <span /><span /><span />
-                <div>{project.linkDoProjeto?.replace(/^https?:\/\//, "").replace(/\/$/, "") || title}</div>
+                <span />
+                <span />
+                <span />
+                <div>
+                  {project.linkDoProjeto
+                    ?.replace(/^https?:\/\//, "")
+                    .replace(/\/$/, "") || title}
+                </div>
               </div>
               <div className="project-detail__media-image">
                 {images[0]?.url ? (
@@ -125,25 +162,40 @@ const ProjectPage = ({ project }: { project: Project }) => {
           </div>
         </section>
 
-        <section className="project-detail__body" aria-labelledby="project-overview">
+        <section
+          className="project-detail__body"
+          aria-labelledby="project-overview"
+        >
           <article className="project-detail__story project-reveal">
             <p className="project-detail__kicker">{t("detail.overview")}</p>
             <h2 id="project-overview">{t("detail.idea")}</h2>
             {project.descricao ? (
-              <div className="project-detail__rich-text" dangerouslySetInnerHTML={{ __html: project.descricao }} />
+              <div
+                className="project-detail__rich-text"
+                dangerouslySetInnerHTML={{ __html: project.descricao }}
+              />
             ) : (
-              <p className="project-detail__empty">{t("detail.descriptionEmpty")}</p>
+              <p className="project-detail__empty">
+                {t("detail.descriptionEmpty")}
+              </p>
             )}
           </article>
 
-          <aside className="project-detail__stack project-reveal" aria-label="Tecnologias do projeto">
+          <aside
+            className="project-detail__stack project-reveal"
+            aria-label="Tecnologias do projeto"
+          >
             <p className="project-detail__kicker">{t("detail.stackApplied")}</p>
             <h2>{t("detail.technologies")}</h2>
             {technologies.length ? (
               <ul>
                 {technologies.map((technology, index) => (
-                  <li key={technology} style={{ "--item-index": index } as CSSProperties}>
-                    <span>{String(index + 1).padStart(2, "0")}</span>{technology}
+                  <li
+                    key={technology}
+                    style={{ "--item-index": index } as CSSProperties}
+                  >
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    {technology}
                   </li>
                 ))}
               </ul>
@@ -154,15 +206,26 @@ const ProjectPage = ({ project }: { project: Project }) => {
         </section>
 
         {images.length > 1 && (
-          <section className="project-detail__gallery" aria-labelledby="gallery-title">
+          <section
+            className="project-detail__gallery"
+            aria-labelledby="gallery-title"
+          >
             <div className="project-detail__gallery-heading project-reveal">
               <p className="project-detail__kicker">{t("detail.inside")}</p>
               <h2 id="gallery-title">{t("detail.perspectives")}</h2>
             </div>
             <div className="project-detail__gallery-grid">
               {images.slice(1).map((image, index) => (
-                <figure className="project-detail__gallery-item project-reveal" key={`${image.url}-${index}`}>
-                  <Image src={image.url} alt={image.alt || `${title}, tela ${index + 2}`} fill sizes="(max-width: 768px) 94vw, 60vw" />
+                <figure
+                  className="project-detail__gallery-item project-reveal"
+                  key={`${image.url}-${index}`}
+                >
+                  <Image
+                    src={image.url}
+                    alt={image.alt || `${title}, tela ${index + 2}`}
+                    fill
+                    sizes="(max-width: 768px) 94vw, 60vw"
+                  />
                 </figure>
               ))}
             </div>
@@ -173,7 +236,9 @@ const ProjectPage = ({ project }: { project: Project }) => {
           <p>{t("detail.similar")}</p>
           <h2>{t("detail.next")}</h2>
           <div>
-            <a href="mailto:gabriel_rodrigues_perez@hotmail.com">{t("detail.start")} <HiArrowUpRight aria-hidden="true" /></a>
+            <a href="https://api.whatsapp.com/send?phone=5517992560812&text=Oi%21%20vi%20seus%projetos%20e%20gostaria%20de%20conversar%20com%20você">
+              {t("detail.start")} <HiArrowUpRight aria-hidden="true" />
+            </a>
             <Link href="/#projects">{t("detail.back")}</Link>
           </div>
         </footer>
@@ -193,8 +258,12 @@ export async function getStaticProps({ params }) {
       props: {
         project: {
           ...project,
-          imagemDoProjeto: Array.isArray(project.imagemDoProjeto) ? project.imagemDoProjeto : [],
-          tecnologiaAside: Array.isArray(project.tecnologiaAside) ? project.tecnologiaAside : [],
+          imagemDoProjeto: Array.isArray(project.imagemDoProjeto)
+            ? project.imagemDoProjeto
+            : [],
+          tecnologiaAside: Array.isArray(project.tecnologiaAside)
+            ? project.tecnologiaAside
+            : [],
         },
       },
       revalidate: 60,
@@ -209,7 +278,9 @@ export async function getStaticPaths() {
   try {
     const projects = await api.AllProjects();
     return {
-      paths: projects.data.allProjetos.map((project) => ({ params: { id: String(project.id) } })),
+      paths: projects.data.allProjetos.map((project) => ({
+        params: { id: String(project.id) },
+      })),
       fallback: "blocking",
     };
   } catch (error) {

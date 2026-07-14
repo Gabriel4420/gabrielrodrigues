@@ -32,8 +32,8 @@ export default function Document() {
         <Main />
         <NextScript />
         <a
-          href="https://api.whatsapp.com/send?phone=5517992560812&text=Oi%21%20vi%20seu%20curriculum%20e%20gostaria%20de%20conversar%20com%20você"
-          className="fixed w-14 h-14 bottom-9 right-9 bg-[#25d366] text-white rounded-full shadow-lg shadow-black/40  "
+          href="https://api.whatsapp.com/send?phone=5517992560812&text=Oi%21%20vi%20seus%projetos%20e%20gostaria%20de%20conversar%20com%20você"
+          className="fixed w-14 h-14 bottom-9 right-9 bg-[#25d366] text-white rounded-full shadow-lg shadow-black/40"
           target="_blank"
           title="whatsapp"
           rel="no-follow noopener"
