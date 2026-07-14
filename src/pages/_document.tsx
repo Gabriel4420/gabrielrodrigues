@@ -11,9 +11,14 @@ export default function Document() {
     importTE();
   }, []);
   return (
-    <Html lang="en">
+    <Html lang="pt-BR">
       <Head />
       <body>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('portfolio-theme');document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');var l=localStorage.getItem('portfolio-locale');if(l)document.documentElement.lang=l==='pt'?'pt-BR':l}catch(e){}})();`,
+          }}
+        />
         <div
           data-tf-sidetab="wj9Makwv"
           data-tf-opacity="100"

@@ -1,14 +1,14 @@
 import { PropertiesNavMenuIcon } from "@/interfaces";
 import { FC } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
+import { usePreferences } from "@/contexts/PreferencesContext";
 
-const NavMenuHamburguerIcon: FC<PropertiesNavMenuIcon> = ({
-  haveNav,
-}: PropertiesNavMenuIcon) => {
+const NavMenuHamburguerIcon: FC<PropertiesNavMenuIcon> = ({ haveNav }) => {
+  const { t } = usePreferences();
   return (
-    <div onClick={haveNav} className="md:hidden">
-      <AiOutlineMenu className="cursor-pointer" size={25} />
-    </div>
+    <button type="button" onClick={haveNav} className="site-nav__menu-button" aria-label={t("nav.open")}>
+      <AiOutlineMenu aria-hidden="true" size={24} />
+    </button>
   );
 };
 

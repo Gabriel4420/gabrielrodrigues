@@ -1,42 +1,34 @@
-import { useState, FC, useEffect } from "react";
+import { useEffect, useState, FC } from "react";
 import Image from "next/image";
-
+import Link from "next/link";
 import { NavMenu, NavMenuHamburgerIcon, NavMenuMobile } from "../atoms";
+import PreferenceControls from "../atoms/PreferenceControls";
+import { usePreferences } from "@/contexts/PreferencesContext";
 
 const Navbar: FC = () => {
-  //
-
   const [nav, setNav] = useState(false);
-  const [shadow, setShadow] = useState(false);
-
-  const handleNav = () => setNav(!nav);
+  const [scrolled, setScrolled] = useState(false);
+  const { t } = usePreferences();
 
   useEffect(() => {
-    const handleShow = () =>
-      window.scrollY >= 90 ? setShadow(true) : setShadow(false);
-
-    window.addEventListener("scroll", handleShow);
+    const handleScroll = () => setScrolled(window.scrollY >= 32);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <header
-      className={
-        shadow
-          ? "fixed w-full h-20 shadow-xl z-[999] bg-[#ececf3] "
-          : "fixed w-full h-20  z-[999] bg-[#ececf3] "
-      }
-    >
-      <div className="flex justify-between items-center w-full h-full px-2 2xl:px-16">
-        <Image
-          src="/assets/logogabriel.png"
-          width="100"
-          height="100"
-          alt="logo"
-        />
+    <header className={`site-nav ${scrolled ? "site-nav--scrolled" : ""}`}>
+      <div className="site-nav__inner">
+        <Link href="/#home" className="site-nav__brand" aria-label={`Gabriel Rodrigues — ${t("nav.home")}`}>
+          <Image src="/assets/logogabriel.png" width={54} height={54} alt="" priority />
+          <span>Gabriel Rodrigues</span>
+        </Link>
         <NavMenu />
-        <NavMenuHamburgerIcon haveNav={handleNav} />
+        <PreferenceControls />
+        <NavMenuHamburgerIcon haveNav={() => setNav(true)} />
       </div>
-      {nav && <NavMenuMobile haveNav={handleNav} />}
+      {nav && <NavMenuMobile haveNav={() => setNav(false)} />}
     </header>
   );
 };
